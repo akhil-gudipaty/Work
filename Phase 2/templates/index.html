@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>new page</title>
+</head>
+<body> -->
+    {% block title %} Log in {% endblock %}
+    {% block content %}
+    <h1>{{ string }}</h1>
+    <form action="/" method = "POST">
+        <div class="form-group">
+        <label for = "email">Username</label>
+        <input type = "text" name = "email">
+        </div>
+        <div class="form-group">
+        <label for = "password">Password</label>
+        <input type = "password" name = "password">
+        </div>
+        <button class="btn-primary" type="submit">LogIn</button>
+    </form>
+    {% endblock %}
+<!-- </body>
+</html> -->

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block main_head %} Welcome, {{ email }} {% endblock %}
+
+{% block navbar %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Sign out</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{ url_for('info') }}">Check Info</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('productListing') }}">View Products</a></li>
+                    {% if seller %}
+                <li><a class="dropdown-item" href="#">Sell Products</a></li>
+                    {% endif %}
+            </ul>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+{% block content %}
+    {% if seller %}
+    <h1>Publish a product</h1>
+    <form action="/publishProduct" method="POST"> 
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type='text' name='title'>
+        </div>
+        <div class="form-group">
+            <label for="name">Product Name</label>
+            <input type="text" name="name">
+        </div>
+        <div class="form-group">
+            <label for="description">Product Description</label>
+            <input type="text" name="description">
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select name=category>
+                {% for i in category %}
+                    <option value="{{ i.0 }}">{{ i.0 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" step="0.01" name="price">
+        </div>
+        <div class="form-group">
+            <label for="qty">Quantity</label>
+            <input type="number" step="1" name="qty">
+        </div>
+        <!-- <div class="form-group">
+            <label for="from">Active Period from</label>
+            <input type="text" name="from">
+        </div>
+        <div class="form-group">
+            <label for="to">Active Period to</label>
+            <input type="text" name="to">
+        </div> -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% else %}
+    <h1>In order to sell a product, you have to be a seller</h1>
+    {% endif %}
+{% endblock %}

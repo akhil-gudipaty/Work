@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block main_head %} Welcome, {{ email }} {% endblock %}
+
+{% block navbar %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Sign out</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{ url_for('info') }}">Check Info</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('productListing') }}">View Products</a></li>
+                    {% if seller %}
+                <li><a class="dropdown-item" href="#">Sell Products</a></li>
+                    {% endif %}
+            </ul>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+{% block content %}
+<h1> User Information </h1>
+    <table class="table table-dark">
+        <tbody>
+        {% for key, value in userInfo.items() %}
+            <tr>
+                <th> {{ key }}</th>
+                <td style="width: 500px"> {{ value }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h1>Home Address</h1>
+    <table class="table table-dark">
+        <tbody>
+        {% for key, value in home_addr.items() %}
+            <tr>
+                <th> {{ key }}</th>
+                <td style="width: 500px"> {{ value }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h1>Billing Address</h1>
+    <table class="table table-dark">
+        <tbody>
+        {% for key, value in billing_addr.items() %}
+            <tr>
+                <th> {{ key }}</th>
+                <td style="width: 500px"> {{ value }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h1>Credit Card Info</h1>
+    <table class="table table-dark">
+        <tbody>
+        {% for key, value in credit_card.items() %}
+            <tr>
+                <th> {{ key }}</th>
+                <td style="width: 500px"> {{ value }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h1>Update password</h1>
+    <form action="/info" method = "POST">
+        <div class="form-group">
+        <label for = "password">Password</label>
+        <input type = "password" name = "password">
+        </div>
+        <button class="btn btn-primary" type="submit">Change</button>
+    </form>
+    <br>
+{% endblock %}

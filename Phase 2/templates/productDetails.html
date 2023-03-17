@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block main_head %} Welcome, {{ email }} {% endblock %}
+
+{% block navbar %}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Sign out</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{ url_for('info') }}">Check Info</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('productListing') }}">View Products</a></li>
+                    {% if seller %}
+                <li><a class="dropdown-item" href="#">Sell Products</a></li>
+                    {% endif %}
+            </ul>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+{% block content %}
+
+<h2>{{ product.1 }} {{ product.3 }} {{ product.4 }}</h2>
+<br>
+<h4>{{ product.5 }}</h4>
+<br>
+<h5>{{ product.6 }}</h5>
+<h5>{{ product.7 }} available</h5>
+{% if product.7 == 0 %}
+    <h5>This item is currently of stock</h5>
+{% else %}
+    <a href="{{ url_for('placeOrder', product_id=product.1) }}"><button class="btn btn-primary">Buy now</button></a>
+{% endif %}
+<!-- <button class='btn btn-primary'>Add to Cart</button> -->
+<br>
+<h3>Reviews</h3>
+{% for i in review %}
+    {{ i.0 }} - {{ i.1 }}
+{% endfor %}       
+{% endblock %}
